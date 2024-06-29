@@ -349,7 +349,7 @@ class ProblemHanoi(aima.Problem):
         """
         return action.execute(state)
 
-    def path_cost(self, h, state1, action, state2):
+    def path_cost(self, c, state1, action, state2):
         """
         Calcula el costo del camino.
 
@@ -363,4 +363,4 @@ class ProblemHanoi(aima.Problem):
         Returns:
             float: Costo total del camino.
         """
-        return h + state1.accumulated_cost + action.cost
+        return state1.accumulated_cost + action.cost

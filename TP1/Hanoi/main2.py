@@ -1,5 +1,7 @@
 import time
 
+from Hanoi.aima import PriorityQueue
+
 start = time.time()
 
 from hanoi_states import StatesHanoi, ProblemHanoi
@@ -16,6 +18,7 @@ explored = set()
 # good_order = [[5,4,3,2,1],[5,4,3,2],...,[5]]
 good_oder = [list(range(5, 5 - (i + 1), -1)) for i in range(5)]
 
+
 def h(node):
     rod_3 = node.state.rods[2]
     h_ = -len(rod_3) if rod_3 in good_oder else 0
@@ -24,6 +27,9 @@ def h(node):
 
 def f(new_node):
     return new_node.path_cost + h(new_node)
+
+priority_queue = PriorityQueue(order='min', f=f)
+
 
 while len(frontier) != 0:
     node = frontier.pop()
@@ -34,11 +40,10 @@ while len(frontier) != 0:
         print("Encontramos la solución")
         break
 
-    priority_queue = [[f(next_node), next_node] for next_node in node.expand(problem)]
-    sorted_nodes_and_prio = sorted(priority_queue, key=lambda x: x[0])
-    sorted_nodes = [x[1] for x in sorted_nodes_and_prio]
+    priority_queue.extend(node.expand(problem))
 
-    for next_node in sorted_nodes:
+    while len(priority_queue) != 0:
+        next_node = priority_queue.pop()
         if next_node.state not in explored:
             frontier.insert(0, next_node)
 
@@ -46,5 +51,3 @@ print(len(explored), "nodos se expandieron y", len(frontier), "nodos quedaron en
 
 end = time.time()
 print(end - start)
-# nuestro ( con cola de prioridad + heuristica) => 0.11039423942565918
-# original => 0.09908318519592285
