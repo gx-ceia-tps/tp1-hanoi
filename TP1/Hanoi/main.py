@@ -32,8 +32,7 @@ while len(frontier) != 0:
     for i, next_node in enumerate(node.expand(problem)):
         rod_3 = next_node.state.rods[2]
         h = -len(rod_3) if rod_3 in good_order else 0
-        curr_cost = problem.path_cost(h=h, state1=node.state, action=actions[i], state2=next_node.state)
-        # curr_cost = h + actions[i].cost
+        curr_cost = h + actions[i].cost
         heapq.heappush(priority_queue, (curr_cost, next_node))
 
     sorted_nodes = [heapq.heappop(priority_queue)[1] for _ in range(len(priority_queue))]
