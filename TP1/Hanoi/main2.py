@@ -1,5 +1,4 @@
 import time
-start = time.time()
 from Hanoi.aima import PriorityQueue
 from hanoi_states import StatesHanoi, ProblemHanoi
 from tree_hanoi import NodeHanoi
@@ -12,7 +11,6 @@ problem = ProblemHanoi(initial=initial_state, goal=goal_state)
 frontier = [NodeHanoi(problem.initial)]
 explored = set()
 
-# good_order = [[5,4,3,2,1],[5,4,3,2],...,[5]]
 good_order = {tuple(range(5, 5 - (i + 1), -1)) for i in range(5)}
 
 
@@ -24,13 +22,15 @@ def h(new_node):
 def f(new_node):
     return new_node.path_cost + h(new_node)
 
+
 pq = PriorityQueue(order='min', f=f)
 pq.append(NodeHanoi(problem.initial))
 
-while len(frontier) != 0:
+# ----------------------------------
+start = time.time()
+while len(pq) != 0:
     node = pq.pop()
     explored.add(node.state)
-
     if problem.goal_test(node.state):
         last_node = node
         print("Encontramos la solución")
@@ -39,6 +39,18 @@ while len(frontier) != 0:
         if next_node.state not in explored:
             pq.append(next_node)
             frontier.insert(0, next_node)
+
 end = time.time()
+# ----------------------------------
+
 print(len(explored), "nodos se expandieron y", len(frontier), "nodos quedaron en la frontera")
 print(end - start)
+
+ans = []
+node = last_node
+while node.parent is not None:
+    print(node.state)
+    node = node.parent
+    ans.append(node)
+
+print(len(ans))
