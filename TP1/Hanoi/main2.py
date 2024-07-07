@@ -35,6 +35,7 @@ while len(pq) != 0:
     if problem.goal_test(node.state):
         last_node = node
         print("Encontramos la solución")
+        last_node.generate_solution_for_simulator()
         break
     for next_node in node.expand(problem):
         if next_node.state not in explored:
