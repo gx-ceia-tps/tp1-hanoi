@@ -1,5 +1,5 @@
 import time
-from Hanoi.aima import PriorityQueue
+from aima import PriorityQueue
 from hanoi_states import StatesHanoi, ProblemHanoi
 from tree_hanoi import NodeHanoi
 
