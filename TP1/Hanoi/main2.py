@@ -25,12 +25,13 @@ def f(new_node):
 
 pq = PriorityQueue(order='min', f=f)
 pq.append(NodeHanoi(problem.initial))
-
+nodes_used = []
 # ----------------------------------
 start = time.time()
 while len(pq) != 0:
     node = pq.pop()
     explored.add(node.state)
+    nodes_used.append(node)
     if problem.goal_test(node.state):
         last_node = node
         print("Encontramos la solución")
@@ -40,8 +41,11 @@ while len(pq) != 0:
             pq.append(next_node)
             frontier.insert(0, next_node)
 
+
 end = time.time()
 # ----------------------------------
+
+print('nodes used: ', len(nodes_used))
 
 print(len(explored), "nodos se expandieron y", len(frontier), "nodos quedaron en la frontera")
 print(end - start)
@@ -53,4 +57,21 @@ while node.parent is not None:
     node = node.parent
     ans.append(node)
 
+depth = len(ans)
+
+# using book formula:
+# N + 1  = (b*)^(d) -1
+# llamo b* = 2^k
+# log2(N+2) = log2((2^k)^d)
+# log2(N+2) = log2(2^(k*d)) = k*d
+# => k =0.2584266857 => b* = 2^k = 1.19617352, esta bien resuelto.
+
+# O((b*)^d) con b* = 1.196
+# vs
+# arbol completo:
+# O((b)*d) con b = 3
+
+
 print(len(ans))
+
+
