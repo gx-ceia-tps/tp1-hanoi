@@ -3,14 +3,10 @@ from hanoi_states import StatesHanoi, ProblemHanoi
 from tree_hanoi import NodeHanoi
 from math import log2, log
 
-disks = 6
+# disks = 6
 
-
-
-
-
-
-for disks in [4,5,6,7,8,9]:
+for disks in [4,5,6,7,8,9, 10]:
+    print(f'-----Caso Disco: {disks}')
     initial_state = StatesHanoi(list(range(disks,0,-1)), [], [], max_disks=disks)
     goal_state = StatesHanoi([], [], list(range(disks,0,-1)), max_disks=disks)
     problem = ProblemHanoi(initial=initial_state, goal=goal_state)
@@ -33,7 +29,6 @@ for disks in [4,5,6,7,8,9]:
 
     while len(pq) != 0:
         node = pq.pop()
-        explored.add(node.state)
         nodes_used.append(node)
         if problem.goal_test(node.state):
             last_node = node
@@ -42,7 +37,11 @@ for disks in [4,5,6,7,8,9]:
         for next_node in node.expand(problem):
             if next_node.state not in explored:
                 pq.append(next_node)
-
+                explored.add(next_node.state)
+            elif next_node in pq:
+                if f(next_node) < pq[next_node]:
+                    del pq[next_node]
+                    pq.append(next_node)
 
     print('nodes used: ', len(nodes_used))
     N = len(nodes_used)

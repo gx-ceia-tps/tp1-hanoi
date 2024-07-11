@@ -40,8 +40,7 @@ while len(pq) != 0:
 
 
 print('nodes used: ', len(nodes_used))
-
-# print(len(explored), "nodos se expandieron y", len(frontier), "nodos quedaron en la frontera")
+last_node.generate_solution_for_simulator()
 
 ans = []
 node = last_node
@@ -51,20 +50,6 @@ while node.parent is not None:
     ans.append(node)
 
 depth = len(ans)
-
-# using book formula:
-# N + 1  = (b*)^(d) -1
-# llamo b* = 2^k
-# log2(N+2) = log2((2^k)^d)
-# log2(N+2) = log2(2^(k*d)) = k*d
-# => k =0.2584266857 => b* = 2^k = 1.19617352, esta bien resuelto.
-
-# O((b*)^d) con b* = 1.196
-# vs
-# arbol completo:
-# O((b)*d) con b = 3
-
-
-print(len(ans))
+print(depth)
 
 
