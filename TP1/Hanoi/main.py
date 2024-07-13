@@ -37,6 +37,10 @@ while len(pq) != 0:
     for next_node in node.expand(problem):
         if next_node.state not in explored:
             pq.append(next_node)
+        elif next_node in pq:
+            if f(next_node) < pq[next_node]:
+                del pq[next_node]
+                pq.append(next_node)
 
 
 print('nodes used: ', len(nodes_used))
