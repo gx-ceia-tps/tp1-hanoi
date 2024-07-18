@@ -28,7 +28,6 @@ nodes_used = []
 
 while len(pq) != 0:
     node = pq.pop()
-    explored.add(node.state)
     nodes_used.append(node)
     if problem.goal_test(node.state):
         last_node = node
@@ -37,11 +36,11 @@ while len(pq) != 0:
     for next_node in node.expand(problem):
         if next_node.state not in explored:
             pq.append(next_node)
+            explored.add(next_node.state)
         elif next_node in pq:
             if f(next_node) < pq[next_node]:
                 del pq[next_node]
                 pq.append(next_node)
-
 
 print('nodes used: ', len(nodes_used))
 last_node.generate_solution_for_simulator()

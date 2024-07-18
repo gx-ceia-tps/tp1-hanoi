@@ -18,14 +18,14 @@ plt.figure(figsize=(10, 6))
 
 plt.loglog(h, b_h, label=r'$b^h$')
 plt.loglog(h, b_star_h, linestyle='--', label=r'$(b^*)^h$')
-plt.loglog(h, log_b_star_h_b_star_h, label=r'$\log((b^*)^h) \cdot ((b^*)^h)$')
+# plt.loglog(h, log_b_star_h_b_star_h, label=r'$\log((b^*)^h) \cdot ((b^*)^h)$')
 
 plt.xscale('linear')
 plt.yscale('log')
 
 plt.xlabel('h')
 plt.ylabel('Values')
-plt.title('Plot of $b^h$, $(b^*)^h$, and $\log((b^*)^h) \cdot ((b^*)^h)$')
+plt.title('Plot of $b^h$ and $(b^*)^h$')
 plt.legend()
 plt.grid(True)
 plt.show()
